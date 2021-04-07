@@ -1,25 +1,41 @@
 import logo from './logo.svg';
 import './App.css';
+import Overview from "./components/overview";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ourArr: []
+    }
+
+    this.addItem = this.addItem.bind(this);
+  }
+  
+  addItem(){
+    let fieldText = document.getElementById("textfield");
+    if(fieldText.value.length <= 0){
+      return;
+    }
+    this.setState(
+      {
+        ourArr: [...this.state.ourArr,fieldText.value],
+      }
+    )
+  }
+  
+  render() {
+    return (
+      <div>
+        <input id="textfield" type="text"/>
+        <button id="submitbtn" onClick={this.addItem}>Add Item</button>
+         <Overview ourArr={this.state.ourArr}/>
+      </div>
+    );
+  }
 }
 
 export default App;
+
