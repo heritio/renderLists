@@ -9,9 +9,9 @@ class Overview extends Component {
     render() {
         return (
             <ul>
-                {this.props.ourArr.map(function(item){
+                {this.props.ourArr.map(function(item,i){
                     return(
-                        <li>{item}</li>
+                        <li key={`list item ${i}`}>{item}</li>
                     )
                 })}
             </ul>

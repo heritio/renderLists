@@ -8,29 +8,40 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      task:"",
       ourArr: []
     }
 
     this.addItem = this.addItem.bind(this);
+    this.onChangeInputField = this.onChangeInputField.bind(this);
   }
   
-  addItem(){
-    let fieldText = document.getElementById("textfield");
-    if(fieldText.value.length <= 0){
-      return;
-    }
+ onChangeInputField(e){
+  this.setState({
+    task: e.target.value,
+  });
+ }
+
+  addItem(e){
+    e.preventDefault();
     this.setState(
       {
-        ourArr: [...this.state.ourArr,fieldText.value],
+        ourArr: [...this.state.ourArr,this.state.task],
+        task: ""
       }
     )
   }
   
   render() {
+    
     return (
       <div>
-        <input id="textfield" type="text"/>
-        <button id="submitbtn" onClick={this.addItem}>Add Item</button>
+        <form action="" onSubmit={this.addItem}>
+          <label htmlFor="textfield">Insert List</label>
+        <input id="textfield" type="text" onChange={this.onChangeInputField} value={this.state.task}/>
+        <button id="submitbtn" type="submit" >Add Item</button>
+        </form>
+
          <Overview ourArr={this.state.ourArr}/>
       </div>
     );
