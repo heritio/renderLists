@@ -1,19 +1,27 @@
-import logo from './logo.svg';
+
 import './App.css';
+import React, { Component } from 'react';
+
 import Overview from "./components/overview";
 
-import React, { Component } from 'react';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       task:"",
-      ourArr: []
+      ourArr: [],
     }
-
+   
     this.addItem = this.addItem.bind(this);
     this.onChangeInputField = this.onChangeInputField.bind(this);
+    this.newList = this.newList.bind(this);
+  }
+
+  newList(e) {
+        
+    let filteredItems = this.state.ourArr.slice(0,e.target.dataset.remove).concat(this.state.ourArr.slice(e.target.dataset.remove + 1));
+    this.setState({ourArr: filteredItems});
   }
   
  onChangeInputField(e){
@@ -22,7 +30,7 @@ class App extends Component {
   });
  }
 
-  addItem(e){
+addItem(e){
     e.preventDefault();
     this.setState(
       {
@@ -30,9 +38,11 @@ class App extends Component {
         task: ""
       }
     )
-  }
+}
   
-  render() {
+  
+ 
+render() {
     
     return (
       <div>
@@ -42,7 +52,7 @@ class App extends Component {
         <button id="submitbtn" type="submit" >Add Item</button>
         </form>
 
-         <Overview ourArr={this.state.ourArr}/>
+         <Overview arr={this.state.ourArr} list={this.newList}/>
       </div>
     );
   }

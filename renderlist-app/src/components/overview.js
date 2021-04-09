@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
 
 class Overview extends Component {
-    constructor(props) {
+    constructor(props){
         super(props);
-        
+       
     }
-    
+   
     render() {
         return (
-            <ul>
-                {this.props.ourArr.map(function(item,i){
+            <div>
+
+                {this.props.arr.map((task,idx) => {
                     return(
-                        <li key={`list item ${i}`}>{item}</li>
+                        <div key={idx}>
+                            <p>{idx+1}-{task}</p>
+                            <button data-remove={idx} onClick={(e)=>this.props.list(e)} >Delete</button>
+                        </div>
                     )
                 })}
-            </ul>
+            
+            </div>
         );
     }
 }
+
+
 
 export default Overview;
